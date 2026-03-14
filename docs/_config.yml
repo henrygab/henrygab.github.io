@@ -5,4 +5,4 @@ plugins:
 - jekyll-remote-theme
 
 title: HenryGab's Corner
-
+show_downloads: false
