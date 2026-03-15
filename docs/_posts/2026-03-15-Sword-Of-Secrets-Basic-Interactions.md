@@ -336,17 +336,21 @@ pattern to `0x010000`.
 
 >> ASSERT
 
->> DATA 03 01 00 00
+>> DATA 06
+00
+
+>> RELEASE
+
+>> ASSERT
+
+>> DATA 02 01 00 00
 00 00 00 00 
 
->> DATA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-ff ee dd cc bb aa 99 88 77 66 55 44 33 22 11 18 
+>> DATA ff ee dd cc bb aa 99 88 77 66 55 44 33 22 11 18 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
->> DATA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-18 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff 
-
->> DATA 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff 
+>> DATA 18 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff 
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
 >> RELEASE
 
