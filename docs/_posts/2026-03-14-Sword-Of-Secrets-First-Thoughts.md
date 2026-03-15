@@ -10,10 +10,6 @@ tags: [CTF, sword_of_secrets]
 comments: []
 ---
 
-# Sword of Secrets Info
-
-2026-03-14
-
 ## Why does this site exist?
 
 I was really impressed with the quality of this CTF,
