@@ -15,8 +15,6 @@ along ... simply load the [virtual challenge webite](https://swordofsecrets.com/
 
 ## Get the W25Q128 flash memory chip's datasheet
 
-<details><summary>Get the W25Q128 flash memory chip's datasheet</summary><P/>
-
 Download the [datasheet](https://www.mouser.co.il/datasheet/2/949/w25q128jv_revf_03272018_plus-1489608.pdf).
 Take a moment to look over the datasheet you downloaded,
 especially the table listing the supported commands, and
@@ -28,11 +26,9 @@ and `PAGE PROGRAM 02h` commands, so if you've never dealt
 with SPI devices, this walkthrough will give you most of
 what you need to play through these challenges.
 
-</details><hr/>
 
 ## Discover the commands available
 
-<details><summary>Discover the commands available</summary></P>
 
 First step is figuring out how you can interact with
 the Sword through its serial port.
@@ -46,11 +42,8 @@ Can you find the strings that you can send via the
 serial port to cause the Sword to do something?
 (e.g., the list of commands)
 
-</details><hr/>
 
 ## SPI Basics
-
-<details><summary>SPI Basics</summary><P/>
 
 Now that you've discovered all the commands, next is
 to understand how to put them together to do something
@@ -89,11 +82,8 @@ the device to respond with data when the host is
 sending data, the firmware sends bytes of `0`
 when it gets data from the flash device.
 
-</details><hr/>
 
 ## Using SPI via the Sword of Secrets
-
-<details><summary>Using SPI via the Sword of Secrets</summary><P/>
 
 The above command sequence will map substantially
 one-to-one with the serial commands you discovered
@@ -123,11 +113,7 @@ required (and padding/dummy bytes, for those command that
 need them).   If expecting data in response, I send separate
 `DATA` commands, reading at most `0x10` bytes per line.
 
-</details><hr/>
-
 ## Example 1: JEDEC ID (9Fh)
-
-<details><summary>Example 1: JEDEC ID (9Fh)</summary><P/>
 
 This is a simple one-byte command, which expects three bytes of data.
 The expected three-byte response (per datasheet) is:
@@ -155,11 +141,7 @@ ef 40 18
 >> END
 ```
 
-</details><hr/>
-
 ## Example 2a: READ DATA (03h) - 16 bytes from `0x123456`
-
-<details><summary>Example 2a: READ DATA (03h) - 24 bytes from `0x123456`</summary><P/>
 
 This command requires a 24-bit address indicating
 where the read should begin:
@@ -199,11 +181,7 @@ ff ff ff ff ff ff ff ff
 Yes, the data is all `0xFF`, which just means it's
 blank (not written) area of the flash.
 
-</details><hr/>
-
 ## Example 2b: READ DATA (03h) - 16 bytes from `0x010000`
-
-<details><summary>Example 2b: READ DATA (03h) - 16 bytes from `0x010000`</summary><P/>
 
 Substantially the same as the Example 2a, only
 now you'll read 16 bytes from an area that has
@@ -225,11 +203,7 @@ been written to.
 >> END
 ```
 
-</details><hr/>
-
 ## Example 2c: READ DATA (03h) - 16 bytes from `0x010000`
-
-<details><summary>Example 2c: READ DATA (03h) - 16 bytes from `0x010000`</summary><P/>
 
 Identical to Example 2b, except that it requests data
 from the device in four-byte increments, instead of 16.
@@ -261,11 +235,7 @@ as it's still between the `ASSERT` and `RELEASE`.
 >> END
 ```
 
-</details><hr/>
-
 ## Example 2d: READ DATA (03h) - 16 bytes from `0x010000`
-
-<details><summary>Example 2d: READ DATA (03h) - 16 bytes from `0x010000`</summary><P/>
 
 While there's no requirement to split the `DATA` line
 (other than input and output line length limits),
@@ -294,11 +264,7 @@ that's just a personal preference.
 >> END
 ```
 
-</details><hr/>
-
 ## Example 3: WRITE ENABLE (06h)
-
-<details><summary>Example 3: WRITE ENABLE (06h)</summary><P/>
 
 This is a single-byte command, with no response.
 It must immediately precede commands that modify
@@ -308,12 +274,8 @@ the command does nothing in and of itself.
 See next two commands (erase 4k and page program)
 for examples.
 
-</details><hr/>
-
 
 ## Example 4: SECTOR ERASE 4k (20h) for address 010000h
-
-<details><summary>Example 4: SECTOR ERASE 4k (20h) for address 010000h</summary><P/>
 
 This command requires a 24-bit address indicating
 where the erase should begin:
@@ -361,11 +323,7 @@ To verify this worked, read the data from 0x10000 again
 (any of Examples 2b through 2d).  The data should have
 changed into all-`0xFF` bytes.
 
-</details><hr/>
-
 ## Example 5: Page program (02h) for address 010000h
-
-<details><summary>Example 5: Page program (02h) for address 010000h</summary><P/>
 
 Now that you've erased the sector at `0x010000`, it's
 ready to be written.  Programming new data also
@@ -402,8 +360,6 @@ changed into all-`0xFF` bytes.
 Finally, to reset the data on the flash chip to the
 original challenge data, send the `RESET` command
 to the Sword of Secrets.
-
-</details><hr/>
 
 ## FIN
 
