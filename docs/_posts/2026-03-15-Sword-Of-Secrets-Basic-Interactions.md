@@ -32,7 +32,7 @@ what you need to play through these challenges.
 
 ## Discover the commands available
 
-<details markdown="1"><summary>Discover the commands available</summary></P>
+<details markdown="1"><summary>Discover the commands available</summary><P/>
 
 First step is figuring out how you can interact with
 the Sword through its serial port.
