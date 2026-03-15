@@ -13,14 +13,14 @@ title: Categories
   <h3>{{ category[0] }} - sorted by date</h3>
   {% assign sorted_posts = category[1] | sort: "date" %}
   <ul>
-    {% for post in category[1] reversed %}
+    {% for post in category[1] %}
       <li><a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
-  <h3>{{ category[0] }} - sorted by date, reversed</h3>
+  <h3>{{ category[0] }} - piped to reverse</h3>
   {% assign sorted_posts = category[1] | sort: "date" | reverse %}
   <ul>
-    {% for post in category[1] reversed %}
+    {% for post in category[1] | reverse %}
       <li><a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
