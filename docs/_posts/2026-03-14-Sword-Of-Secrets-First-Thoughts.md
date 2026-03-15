@@ -2,7 +2,7 @@
 status: published
 published: true
 layout: post
-title: Sword of Secrets - First Thoughts
+title: Sword of Secrets First Thoughts
 author: Henry Gabryjelski
 date: 2026-03-14 21:18:07 UTC
 categories: [Sword of Secrets]
