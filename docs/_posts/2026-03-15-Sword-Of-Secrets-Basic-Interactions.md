@@ -28,7 +28,7 @@ and `PAGE PROGRAM 02h` commands, so if you've never dealt
 with SPI devices, this walkthrough will give you most of
 what you need to play through these challenges.
 
-</details>
+</details><hr/>
 
 ## Discover the commands available
 
@@ -46,7 +46,7 @@ Can you find the strings that you can send via the
 serial port to cause the Sword to do something?
 (e.g., the list of commands)
 
-</details>
+</details><hr/>
 
 ## SPI Basics
 
@@ -89,7 +89,7 @@ the device to respond with data when the host is
 sending data, the firmware sends bytes of `0`
 when it gets data from the flash device.
 
-</details>
+</details><hr/>
 
 ## Using SPI via the Sword of Secrets
 
@@ -123,7 +123,7 @@ required (and padding/dummy bytes, for those command that
 need them).   If expecting data in response, I send separate
 `DATA` commands, reading at most `0x10` bytes per line.
 
-</details>
+</details><hr/>
 
 ## Example 1: JEDEC ID (9Fh)
 
@@ -154,7 +154,8 @@ ef 40 18
 
 >> END
 ```
-</details>
+
+</details><hr/>
 
 ## Example 2a: READ DATA (03h) - 16 bytes from `0x123456`
 
@@ -198,9 +199,7 @@ ff ff ff ff ff ff ff ff
 Yes, the data is all `0xFF`, which just means it's
 blank (not written) area of the flash.
 
-
-</details>
-
+</details><hr/>
 
 ## Example 2b: READ DATA (03h) - 16 bytes from `0x010000`
 
@@ -226,7 +225,7 @@ been written to.
 >> END
 ```
 
-</details>
+</details><hr/>
 
 ## Example 2c: READ DATA (03h) - 16 bytes from `0x010000`
 
@@ -262,7 +261,7 @@ as it's still between the `ASSERT` and `RELEASE`.
 >> END
 ```
 
-</details>
+</details><hr/>
 
 ## Example 2d: READ DATA (03h) - 16 bytes from `0x010000`
 
@@ -295,7 +294,7 @@ that's just a personal preference.
 >> END
 ```
 
-</details>
+</details><hr/>
 
 ## Example 3: WRITE ENABLE (06h)
 
@@ -309,7 +308,7 @@ the command does nothing in and of itself.
 See next two commands (erase 4k and page program)
 for examples.
 
-</details>
+</details><hr/>
 
 
 ## Example 4: SECTOR ERASE 4k (20h) for address 010000h
@@ -362,7 +361,7 @@ To verify this worked, read the data from 0x10000 again
 (any of Examples 2b through 2d).  The data should have
 changed into all-`0xFF` bytes.
 
-</details>
+</details><hr/>
 
 ## Example 5: Page program (02h) for address 010000h
 
@@ -404,7 +403,7 @@ Finally, to reset the data on the flash chip to the
 original challenge data, send the `RESET` command
 to the Sword of Secrets.
 
-</details>
+</details><hr/>
 
 ## FIN
 
