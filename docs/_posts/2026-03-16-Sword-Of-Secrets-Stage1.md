@@ -27,6 +27,8 @@ anything here, as even the review section spoils some
 of the basic things one must learn to interact with
 the Sword.
 
+<hr/>
+
 ## Review
 
 <hr/>
@@ -117,6 +119,8 @@ We will use some of these characteristics of XOR for this challenge.
 
 </details>
 
+<hr/>
+
 ## Hints
 
 <hr/>
@@ -171,6 +175,7 @@ the flash.
 
 </details>
 
+<hr/>
 ## Walkthrough (spoilers)
 
 <hr/>
@@ -518,6 +523,7 @@ considers your data a correct solution.
 
 </details><hr/>
 
+<hr/>
 ## FIN
 
 If you enjoyed this first stage, and were using the
