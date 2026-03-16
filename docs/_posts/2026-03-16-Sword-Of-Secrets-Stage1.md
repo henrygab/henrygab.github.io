@@ -141,7 +141,8 @@ through those, and also review the function, `xcryptXor()`.
 
 Your job is to get `palisade()` to consider the data stored on
 the flash valid.  If it considers the data valid, it will then
-print the cleartext message, and continue to the 
+print the cleartext message, allowing you to continue to the
+next challenge. 
 
 In `palisadeSetup()`, the cleartext message is defined as:
 
