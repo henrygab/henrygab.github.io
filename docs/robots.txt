@@ -1,5 +1,6 @@
 User-agent: *
-Disallow: /
+Disallow: /assets/
 Disallow: /media/
 Disallow: /misc/
+Allow: /
 Sitemap: https://henrygab.github.io/sitemap.xml
