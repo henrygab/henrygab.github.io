@@ -248,6 +248,8 @@ Which corresponds to the four plaintext 16-byte chunks:
 "5745H: 0x_____}\x01"
 ```
 
+</details>
+
 ### Generate ciphertext that beings with "MAGICLIB"
 
 <details markdown="1"><summary>Generate ciphertext that beings with MAGICLIB</summary><P/>
