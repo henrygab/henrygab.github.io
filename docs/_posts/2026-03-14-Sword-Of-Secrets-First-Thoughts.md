@@ -69,7 +69,7 @@ GHPages thing works.
 ## While you wait...
 
 Take a look through the
-[source code](https://github.com/gili-yankovitch/SwordOfSecrets/src),
+[source code](https://github.com/gili-yankovitch/SwordOfSecrets/tree/main/src),
 and load up the [virtual stage 1](https://swordofsecrets.com/mini-rv32ima.html)
 challenge, and see what you can figure out.
 
