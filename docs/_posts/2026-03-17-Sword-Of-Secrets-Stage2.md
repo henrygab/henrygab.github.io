@@ -27,6 +27,8 @@ challenges yourself (even if you use hints).
 
 Without further ado, the three sections...
 
+
+<hr/>
 ## Review
 
 ### Expectations for Stage 2
