@@ -146,6 +146,15 @@ useful form so you can easily add your
 own logic / scripts and automate some of
 the repetitive parts required for this stage.
 
+> NOTE!  You may have to rate-limit sending
+> data to the Sword.  Although it forces
+> connection at 115200, sending constant
+> data at that speed quickly results in
+> a lock up.   I have not root-caused why
+> this occurs, but providing a 0.01s delay
+> between sent characters avoids / hides
+> the issue.
+
 Here are some python libraries I used, which you
 might find useful if you also use python to
 script parts of the interaction.
