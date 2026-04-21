@@ -375,13 +375,14 @@ We're going to be creating the third block from
 scratch, by corrupting the second block and using
 the padding oracle.   Therefore, the initial values
 of the second and third AES block can be any value.
-I chose to initially set them all to zero.
+I chose to initially set the second block to all
+zero, and vanity-fill the third block.
 
 ```
 DATA 30 00 00 00
 DATA 8e 3c 5a f5 56 82 d4 0c 5a 26 db 1d 71 f3 cf 11
 DATA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-DATA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+DATA 68 65 6e 72 79 67 61 62 68 65 6e 72 79 67 61 62
 ```
 
 In order to use the padding oracle, we will write
@@ -404,45 +405,46 @@ no known plaintext values, step-by-step to a full
 
 ```
 START       00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 __   # Brute force last padding byte
-GOLD(0x01)  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 b0
-            00 00 00 00 00 00 00 00 00 00 00 00 00 00 __ b3   # XOR 0x03 (0x01 ^ 0x02)
-GOLD(0x02)  00 00 00 00 00 00 00 00 00 00 00 00 00 00 76 b3
-            00 00 00 00 00 00 00 00 00 00 00 00 00 __ 77 b2   # XOR 0x01 (0x02 ^ 0x03)
-GOLD(0x03)  00 00 00 00 00 00 00 00 00 00 00 00 00 32 77 b2
-            00 00 00 00 00 00 00 00 00 00 00 00 __ 35 70 b5   # XOR 0x07 (0x03 ^ 0x04)
-GOLD(0x04)  00 00 00 00 00 00 00 00 00 00 00 00 b2 35 70 b5
-            00 00 00 00 00 00 00 00 00 00 00 __ b3 34 71 b4   # XOR 0x01 (0x04 ^ 0x05)
-GOLD(0x05)  00 00 00 00 00 00 00 00 00 00 00 aa b3 34 71 b4
-            00 00 00 00 00 00 00 00 00 00 __ a9 b0 37 72 b7   # XOR 0x03 (0x05 ^ 0x06)
-GOLD(0x06)  00 00 00 00 00 00 00 00 00 00 12 a9 b0 37 72 b7
-            00 00 00 00 00 00 00 00 00 __ 13 a8 b1 36 73 b6   # XOR 0x01 (0x06 ^ 0x07)
-GOLD(0x07)  00 00 00 00 00 00 00 00 00 b7 13 a8 b1 36 73 b6
-            00 00 00 00 00 00 00 00 __ b8 1c a7 be 39 7c b9   # XOR 0x0F (0x07 ^ 0x08)
-GOLD(0x08)  00 00 00 00 00 00 00 00 d4 b8 1c a7 be 39 7c b9
-            00 00 00 00 00 00 00 __ d5 b9 1d a6 bf 38 7d b8   # XOR 0x01 (0x08 ^ 0x09)
-GOLD(0x09)  00 00 00 00 00 00 00 22 d5 b9 1d a6 bf 38 7d b8
-            00 00 00 00 00 00 __ 21 d6 ba 1e a5 bc 3b 7e bb   # XOR 0x03 (0x09 ^ 0x0a)
-GOLD(0x0a)  00 00 00 00 00 00 83 21 d6 ba 1e a5 bc 3b 7e bb
-            00 00 00 00 00 __ 82 20 d7 bb 1f a4 bd 3a 7f ba   # XOR 0x01 (0x0a ^ 0x0b)
-GOLD(0x0b)  00 00 00 00 00 a0 82 20 d7 bb 1f a4 bd 3a 7f ba
-            00 00 00 00 __ a7 85 27 d0 bc 18 a3 ba 3d 78 bd   # XOR 0x07 (0x0b ^ 0x0c)
-GOLD(0x0c)  00 00 00 00 37 a7 85 27 d0 bc 18 a3 ba 3d 78 bd
-            00 00 00 __ 36 a6 84 26 d1 bd 19 a2 bb 3c 79 bc   # XOR 0x01 (0x0c ^ 0x0d)
-GOLD(0x0d)  00 00 00 5c 36 a6 84 26 d1 bd 19 a2 bb 3c 79 bc
-            00 00 __ 5f 35 a5 87 25 d2 be 1a a1 b8 3f 7a bf   # XOR 0x03 (0x0d ^ 0x0e)
-GOLD(0x0e)  00 00 00 5f 35 a5 87 25 d2 be 1a a1 b8 3f 7a bf
-            00 __ 01 5e 34 a4 86 24 d3 bf 1b a0 b9 3e 7b be   # XOR 0x01 (0x0e ^ 0x0f)
-GOLD(0x0f)  00 59 01 5e 34 a4 86 24 d3 bf 1b a0 b9 3e 7b be
-            __ 59 01 5e 34 a4 86 24 d3 bf 1b a0 b9 3e 7b be   # XOR 0x1F (0x0f ^ 0x10)
-GOLD(0x10)  ca 46 1e 41 2b bb 99 3b cc a0 04 bf a6 21 64 a1   
+GOLD(0x01)  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 b2
+            00 00 00 00 00 00 00 00 00 00 00 00 00 00 __ b1   # XOR 0x03 (0x01 ^ 0x02)
+GOLD(0x02)  00 00 00 00 00 00 00 00 00 00 00 00 00 00 21 b1
+            00 00 00 00 00 00 00 00 00 00 00 00 00 __ 20 b2   # XOR 0x01 (0x02 ^ 0x03)
+GOLD(0x03)  00 00 00 00 00 00 00 00 00 00 00 00 00 66 20 b2
+            00 00 00 00 00 00 00 00 00 00 00 00 __ 61 27 b7   # XOR 0x07 (0x03 ^ 0x04)
+GOLD(0x04)  00 00 00 00 00 00 00 00 00 00 00 00 d9 61 27 b7
+            00 00 00 00 00 00 00 00 00 00 00 __ d8 60 26 b6   # XOR 0x01 (0x04 ^ 0x05)
+GOLD(0x05)  00 00 00 00 00 00 00 00 00 00 00 48 d8 60 26 b6
+            00 00 00 00 00 00 00 00 00 00 __ 4b db 63 25 b5   # XOR 0x03 (0x05 ^ 0x06)
+GOLD(0x06)  00 00 00 00 00 00 00 00 00 00 42 4b db 63 25 b5
+            00 00 00 00 00 00 00 00 00 __ 43 4a da 62 24 b4   # XOR 0x01 (0x06 ^ 0x07)
+GOLD(0x07)  00 00 00 00 00 00 00 00 00 c4 43 4a da 62 24 b4
+            00 00 00 00 00 00 00 00 __ cb 4c 45 d5 6d 2b bb   # XOR 0x0F (0x07 ^ 0x08)
+GOLD(0x08)  00 00 00 00 00 00 00 00 5c cb 4c 45 d5 6d 2b bb
+            00 00 00 00 00 00 00 __ 5d ca 4d 44 d4 6c 2a ba   # XOR 0x01 (0x08 ^ 0x09)
+GOLD(0x09)  00 00 00 00 00 00 00 4e 5d ca 4d 44 d4 6c 2a ba
+            00 00 00 00 00 00 __ 4d 5e c9 4e 47 d7 6f 29 b9   # XOR 0x03 (0x09 ^ 0x0a)
+GOLD(0x0a)  00 00 00 00 00 00 8e 4d 5e c9 4e 47 d7 6f 29 b9
+            00 00 00 00 00 __ 8f 4c 5f c8 4f 46 d6 6e 28 b8   # XOR 0x01 (0x0a ^ 0x0b)
+GOLD(0x0b)  00 00 00 00 00 64 8f 4c 5f c8 4f 46 d6 6e 28 b8
+            00 00 00 00 __ 63 88 4b 58 cf 48 41 d1 69 2f bf   # XOR 0x07 (0x0b ^ 0x0c)
+GOLD(0x0c)  00 00 00 00 6c 63 88 4b 58 cf 48 41 d1 69 2f bf
+            00 00 00 __ 6d 62 89 4a 59 ce 49 40 d0 68 2e be   # XOR 0x01 (0x0c ^ 0x0d)
+GOLD(0x0d)  00 00 00 84 6d 62 89 4a 59 ce 49 40 d0 68 2e be
+
+            00 00 __ 87 6e 61 8a 49 5a cd 4a 43 d3 6b 2d bd   # XOR 0x03 (0x0d ^ 0x0e)
+GOLD(0x0e)  00 00 4c 87 6e 61 8a 49 5a cd 4a 43 d3 6b 2d bd
+            00 __ 4d 86 6f 60 8b 48 5b cc 4b 42 d2 6a 2c bc   # XOR 0x01 (0x0e ^ 0x0f)
+GOLD(0x0f)  00 5c 4d 86 6f 60 8b 48 5b cc 4b 42 d2 6a 2c bc
+            __ 43 52 99 70 7f 94 57 44 d3 54 5d cd 75 33 a3   # XOR 0x1F (0x0f ^ 0x10)
+GOLD(0x10)  e9 43 52 99 70 7f 94 57 44 d3 54 5d cd 75 33 a3
 ```
 
 The result is the following encrypted data blob:
 
 ```
 ENCRYPTED0:  8e 3c 5a f5 56 82 d4 0c 5a 26 db 1d 71 f3 cf 11
-ENCRYPTED1:  ca 46 1e 41 2b bb 99 3b cc a0 04 bf a6 21 64 a1
-ENCRYPTED2:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ENCRYPTED1:  e9 43 52 99 70 7f 94 57 44 d3 54 5d cd 75 33 a3
+ENCRYPTED2:  68 65 6e 72 79 67 61 62 68 65 6e 72 79 67 61 62
 ```
 
 Which decrypts into:
@@ -475,15 +477,14 @@ byte?   We can do substantially the same thing here, by
 new (desired) value.  The only difference here is that the
 new (desired) value will be different for each byte.
 
-
 ```
-  ENCRYPTED1:  ca 46 1e 41 2b bb 99 3b cc a0 04 bf a6 21 64 a1
+  ENCRYPTED1:  e9 43 52 99 70 7f 94 57 44 d3 54 5d cd 75 33 a3
 ^ DECRYPTED2': 82 97 01 45 11 01 82 40 82 80 06 06 06 06 06 06
 ==============================================================
-intermediate:  48 d1 1f 04 3a ba 1b 7b 4e 20 02 b9 a0 27 62 a7
+intermediate:  6b d4 53 dc 61 7e 16 17 c6 53 52 5b cb 73 35 a5
 ^ DECRYPTED2:  10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10
 ==============================================================
-      FINAL2:  58 c1 0f 14 2a aa 0b 6b 5e 30 12 a9 b0 37 72 b7
+      FINAL2:  7b c4 43 cc 71 6e 06 07 d6 43 42 4b db 63 25 b5
 ```
 
 And that gives us the new ciphertext for the second AES block,
@@ -493,8 +494,8 @@ instructions:
 ```
 DATA 03 00 00 00
 DATA 8e 3c 5a f5 56 82 d4 0c 5a 26 db 1d 71 f3 cf 11
-DATA 58 c1 0f 14 2a aa 0b 6b 5e 30 12 a9 b0 37 72 b7
-DATA 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+DATA 7b c4 43 cc 71 6e 06 07 d6 43 42 4b db 63 25 b5
+DATA 68 65 6e 72 79 67 61 62 68 65 6e 72 79 67 61 62
 ```
 
 Which decrypts into:
@@ -625,7 +626,7 @@ With the chip write-protected:
 * `SOLVE`
   * `challenges()` will validate stage 1 `palisade()`
   * `challenges()` will validate stage 2 `parapet()`
-  * `challenges()` will validate stage 3 `postern()`)
+  * `challenges()` will validate stage 3 `postern()`
   * `challenges()` will call `digForTreasure()`
     * `digForTreasure()` will load the BF script and call `treasure()`
     * `treasure()` will modify the jump instruction stored in `code[]`
@@ -677,3 +678,5 @@ the above.
 
 Enjoy!
 
+Note: This post was edited to use vanity data in the third
+AES block of ciphertext (instead of all-zero data).
