@@ -430,7 +430,6 @@ GOLD(0x0b)  00 00 00 00 00 64 8f 4c 5f c8 4f 46 d6 6e 28 b8
 GOLD(0x0c)  00 00 00 00 6c 63 88 4b 58 cf 48 41 d1 69 2f bf
             00 00 00 __ 6d 62 89 4a 59 ce 49 40 d0 68 2e be   # XOR 0x01 (0x0c ^ 0x0d)
 GOLD(0x0d)  00 00 00 84 6d 62 89 4a 59 ce 49 40 d0 68 2e be
-
             00 00 __ 87 6e 61 8a 49 5a cd 4a 43 d3 6b 2d bd   # XOR 0x03 (0x0d ^ 0x0e)
 GOLD(0x0e)  00 00 4c 87 6e 61 8a 49 5a cd 4a 43 d3 6b 2d bd
             00 __ 4d 86 6f 60 8b 48 5b cc 4b 42 d2 6a 2c bc   # XOR 0x01 (0x0e ^ 0x0f)
