@@ -1,4 +1,4 @@
-# Github Pages
+# Github Page
 
 A personal site.
 
