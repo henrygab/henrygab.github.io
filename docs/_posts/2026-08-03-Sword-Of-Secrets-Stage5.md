@@ -4,7 +4,7 @@ published: true
 layout: post
 title: Sword of Secrets - Stage 5 - OOPS! Solution
 author: Henry Gabryjelski
-date: 2026-08-04 01:09:31 UTC
+date: 2026-08-03 12:12:12 UTC
 categories: [Sword of Secrets]
 tags: [CTF, sword_of_secrets]
 comments: []
