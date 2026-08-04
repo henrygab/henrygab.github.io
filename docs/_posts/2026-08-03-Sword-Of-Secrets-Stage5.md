@@ -310,6 +310,7 @@ changing what's on the device.
 
 </details>
 
+</details>
 
 ## FIN?
 
